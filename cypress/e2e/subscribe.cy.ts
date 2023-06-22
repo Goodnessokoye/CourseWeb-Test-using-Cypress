@@ -1,14 +1,17 @@
+import { faker } from '@faker-js/faker';
+const randomEmail = faker.internet.email(); 
+
 describe("Subscription form", ()=>{
     beforeEach(()=>{
         cy.visit("http://localhost:3000")
     })
-    it("allow users to subscribe to the newsletter", ()=>{
+    it.only("allow users to subscribe to the newsletter", ()=>{
         cy.getByData("email-input")
-            .type("hello@goodness")
+            .type(randomEmail)
         cy.getByData('submit-button').click()
         cy.getByData("success-message")
             .should("exist")
-            .contains("hello@goodness")
+            .contains(randomEmail)
     })
 
     it("Doesn't allow user with an invalid email address", ()=>{
